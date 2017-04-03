@@ -26,6 +26,9 @@
 #include "Sound.h"
 #include "Timer.h"
 #include "FrameTimer.h"
+#include "Board.h"
+#include "Snake.h"
+#include <random>
 
 class Game
 {
@@ -46,7 +49,12 @@ private:
 	DSound audio;
 	/********************************/
 	/*  User Variables              */
-	
+	Board brd;
+	std::mt19937 rng;
+	Snake snejk;
+	Location delta_loc = { 1,0 };
+	static constexpr int snejkMovePeriod = 20;
+	int snejkMoveCounter = 0;
 	/********************************/
 	void UpdateModel();
 };

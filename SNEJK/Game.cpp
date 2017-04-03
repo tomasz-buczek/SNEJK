@@ -20,11 +20,14 @@
  ******************************************************************************************/
 #include "Game.h"
 
-Game::Game( HWND hWnd,KeyboardServer& kServer,const MouseServer& mServer )
-:	gfx( hWnd ),
-	audio( hWnd ),
-	kbd( kServer ),
-	mouse( mServer )
+Game::Game(HWND hWnd, KeyboardServer& kServer, const MouseServer& mServer)
+	: gfx(hWnd),
+	audio(hWnd),
+	kbd(kServer),
+	mouse(mServer),
+	brd(gfx),
+	rng(std::random_device()()),
+	snejk({ 2,2 })
 {
 }
 
@@ -42,8 +45,30 @@ void Game::Go()
 
 void Game::UpdateModel( )
 {
+	if (kbd.KeyIsPressed(VK_UP)) {
+		delta_loc = { 0,-1 };
+	}
+	else if (kbd.KeyIsPressed(VK_DOWN)) {
+		delta_loc = { 0,1 };
+	}
+	else if (kbd.KeyIsPressed(VK_LEFT)) {
+		delta_loc = { -1,0 };
+	}
+	else if (kbd.KeyIsPressed(VK_RIGHT)) {
+		delta_loc = { 1,0 };
+	}
+	++snejkMoveCounter;
+	if(snejkMoveCounter >= snejkMovePeriod)
+	{
+		snejkMoveCounter = 0;
+		if (kbd.KeyIsPressed(VK_CONTROL)) {
+			snejk.Grow();
+		}
+		snejk.MoveBy(delta_loc);
+	}
 }
 
 void Game::ComposeFrame()
 {
+	snejk.Draw(brd);
 }
