@@ -186,3 +186,12 @@ void D3DGraphics::DrawCircle( int centerX,int centerY,int radius,D3DCOLOR color 
 		PutPixel( centerX - y,centerY - x,color );
 	}
 }
+
+void D3DGraphics::DrawRect(int x0, int y0, int x1, int y1, D3DCOLOR c)
+{
+	for (int i = x0; i <= x1; i++) {
+		for (int j = y0; j <= y1; j++) {
+			PutPixel(i, j, c);
+		}
+	}
+}

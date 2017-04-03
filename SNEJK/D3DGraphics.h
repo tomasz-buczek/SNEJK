@@ -37,6 +37,10 @@ public:
 	}
 	void DrawLine( int x1,int y1,int x2,int y2,D3DCOLOR c );
 	void DrawCircle( int centerX,int centerY,int radius,D3DCOLOR c );
+	void DrawRect(int x0, int y0, int x1, int y1, D3DCOLOR c);
+	void DrawRectDim(int x0, int y0, int width, int height, D3DCOLOR c) {
+		DrawRect(x0, y0, x0 + width, y0 + height, c);
+	}
 	void BeginFrame();
 	void EndFrame();
 public:
